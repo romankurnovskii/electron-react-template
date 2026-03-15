@@ -105,10 +105,8 @@ Replace the contents of `src/App.tsx` with the following code:
 ```tsx
 function App() {
   return (
-    <div className='App'>
-      <p>
-        Hello World!
-      </p>
+    <div className="App">
+      <p>Hello World!</p>
     </div>
   );
 }
@@ -166,9 +164,7 @@ function createWindow() {
   });
 
   win.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+    isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
   win.webContents.openDevTools();

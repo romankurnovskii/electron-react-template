@@ -8,13 +8,12 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
   win.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+    isDev ? 'http://localhost:5173' : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
   win.webContents.openDevTools();
