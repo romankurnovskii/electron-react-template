@@ -16,10 +16,10 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload/preload.ts'),
+      preload: path.join(__dirname, 'preload/preload.js'),
     },
     titleBarStyle: 'hiddenInset',
-    show: false,
+    show: true, // Show immediately for debugging
     frame: true, // Show frame initially for desktop mode
   });
 
@@ -27,12 +27,12 @@ function createWindow() {
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:5173'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+      : `file://${path.join(__dirname, '../index.html')}`
   );
 
-  // Show window when ready
-  mainWindow.once('ready-to-show', () => {
-    mainWindow?.show();
+  // Handle loading errors
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorCode, errorDescription);
   });
 
   // Open DevTools in development
