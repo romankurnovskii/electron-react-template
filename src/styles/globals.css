@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(4.9% 0 222.2);
+
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(4.9% 0 222.2);
+
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(4.9% 0 222.2);
+
+  --color-primary: oklch(53.3% 0.221 221.2);
+  --color-primary-foreground: oklch(98% 0.02 210);
+
+  --color-secondary: oklch(96.1% 0.02 210);
+  --color-secondary-foreground: oklch(11.2% 0.05 222.2);
+
+  --color-muted: oklch(96.1% 0.02 210);
+  --color-muted-foreground: oklch(46.9% 0.03 215.4);
+
+  --color-accent: oklch(96.1% 0.02 210);
+  --color-accent-foreground: oklch(11.2% 0.05 222.2);
+
+  --color-destructive: oklch(60.2% 0.18 0);
+  --color-destructive-foreground: oklch(98% 0.02 210);
+
+  --color-border: oklch(91.4% 0.02 214.3);
+  --color-input: oklch(91.4% 0.02 214.3);
+  --color-ring: oklch(53.3% 0.221 221.2);
+
+  --radius: 0.5rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
