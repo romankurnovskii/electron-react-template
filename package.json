@@ -16,7 +16,7 @@
     "electron:dist": "npm run build && tsc -p electron --skipLibCheck && electron-builder --mac --dir"
   },
   "dependencies": {
-    "electron-devtools-installer": "^3.2.0",
+    "electron-devtools-installer": "^4.0.0",
     "electron-reload": "^2.0.0-alpha.1",
     "lucide-react": "^0.577.0",
     "react": "^18.2.0",
@@ -29,7 +29,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/electron-devtools-installer": "^2.2.2",
+    "@types/electron-devtools-installer": "^4.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^18.0.37",
