@@ -27,7 +27,7 @@
     "@eslint/js": "^9.0.0",
     "@tailwindcss/postcss": "^4.2.1",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.4.3",
     "@types/electron-devtools-installer": "^4.0.0",
     "@types/jest": "^30.0.0",
