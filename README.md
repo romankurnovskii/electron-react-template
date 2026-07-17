@@ -1,234 +1,160 @@
-<div align="center">
-<img alt="Electron React Boilerplate" src="./assets/logo.png" width="500" />
-</div>
-<br />
+# Electron React Template
 
-# Electron React Boilerplate
+A minimal, production-ready template for building cross-platform desktop applications with Electron, React, TypeScript, and Tailwind CSS v4.
 
-A modern, feature-rich boilerplate for building cross-platform desktop applications with Electron, React, TypeScript, and Tailwind CSS.
+## Why This Exists
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/your-username/electron-react-boilerplate)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+Most Electron boilerplates are bloated with opinions you don't need. This template provides only the essentials: a working build pipeline, type-safe IPC, and a component system you can actually extend. Everything else is your decision.
 
-## ✨ Features
+## Preview
 
-- 🚀 **Modern Stack**: React 18 + TypeScript + Vite + Tailwind CSS v4
-- 🖥️ **Cross-Platform**: Windows, macOS, and Linux support
-- 🎨 **Beautiful UI**: Pre-built settings page with reusable components
-- 🧪 **Testing Ready**: Vitest + React Testing Library setup
-- 📦 **Production Ready**: Optimized builds with Electron Builder
-- 🔧 **Developer Experience**: Hot reload, ESLint, Prettier, Husky
-- 🎯 **Type Safe**: Full TypeScript configuration
+![Desktop view](assets/screenshot-01.png)
+![Settings page](assets/screenshot-02.png)
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="./assets/screenshot-01.png" alt="Desktop App Main View" width="400" />
-  <img src="./assets/screenshot-02.png" alt="Settings Page" width="400" />
-</div>
-
-## 🚀 Quick Start
-
-### Use This Template
-
-1. Click the **"Use this template"** button above
-2. Clone your new repository
-3. Install dependencies and start developing:
+## Quick Start
 
 ```bash
-npm install
+# 1. Clone and install
+git clone https://github.com/romankurnovskii/electron-react-template my-app
+cd my-app
+npm ci
+
+# 2. Develop with hot reload
 npm run electron:dev
+
+# 3. Build for production
+npm run electron:dist
 ```
 
-That's it! Your desktop app will open with hot reload enabled.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-electron-react-boilerplate/
+electron-react-template/
 ├── electron/                 # Electron main process
-│   ├── main.ts              # Main entry point
-│   └── preload/             # Preload scripts
+│   ├── main.ts              # App entry point, window management, IPC handlers
+│   └── preload/             # Secure context bridge (exposes APIs to renderer)
 ├── src/                     # React renderer process
 │   ├── components/          # Reusable UI components
-│   │   ├── ui/             # Base UI components
-│   │   └── layout/         # Layout components
-│   ├── pages/              # Application pages
+│   │   ├── ui/             # Base primitives (Button, Input, Card, etc.)
+│   │   └── layout/         # Layout components (Sidebar, Header, etc.)
+│   ├── pages/              # Route-level components
 │   ├── hooks/              # Custom React hooks
-│   ├── services/           # API and utility services
-│   └── styles/             # Global styles and Tailwind config
-├── assets/                  # Static assets (images, icons)
-├── public/                  # Public static files
-└── build/                   # Built application output
+│   ├── services/           # Business logic, API clients
+│   ├── styles/             # Global styles, Tailwind imports
+│   └── __tests__/          # Unit/integration tests
+├── assets/                  # Static assets (icons, images)
+├── public/                  # Public files copied to build/
+├── build/                   # Compiled output (gitignored)
+└── dist/                    # Packaged distributables (gitignored)
 ```
 
-## 🛠️ Available Scripts
+## Commands
 
-```bash
-# Development
-npm run electron:dev          # Start development with hot reload
-npm run start                 # Start Vite dev server only
-npm run build                 # Build for production
+| Command | Description |
+|---------|-------------|
+| `npm run electron:dev` | Start dev server + Electron with hot reload |
+| `npm run start` | Vite dev server only (renderer) |
+| `npm run build` | Type-check + production build (renderer) |
+| `npm run electron:build` | Build + package for current platform |
+| `npm run electron:dist` | Create distributable (macOS: `--mac --dir`) |
+| `npm run test` | Run Vitest tests (headless) |
+| `npm run test:ui` | Run tests with Vitest UI |
+| `npm run lint` | ESLint check |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run format` | Prettier format |
 
-# Production
-npm run electron:build        # Build and package for current platform
-npm run electron:dist         # Create distributable package
-
-# Testing
-npm run test                  # Run tests with Vitest
-npm run test:ui              # Run tests with UI
-
-# Code Quality
-npm run lint                  # Run ESLint
-npm run lint:fix             # Fix ESLint issues
-npm run format               # Format code with Prettier
-```
-
-## 🎨 UI Components
-
-This boilerplate includes a comprehensive set of reusable UI components:
-
-### Form Components
-- **Input** - Text input with validation
-- **TextArea** - Multi-line text input
-- **Select** - Dropdown selection
-- **Checkbox** - Boolean toggle
-- **Slider** - Range input with labels
-- **RadioGroup** - Mutually exclusive options
-- **FormField** - Form field wrapper with labels and errors
-
-### Layout Components
-- **Card** - Content container with header/footer
-- **Button** - Action buttons with variants
-- **Toggle** - Switch component
-
-All components are fully typed, accessible, and styled with Tailwind CSS.
-
-## 🔧 Configuration
+## Architecture
 
 ### TypeScript
-The project uses strict TypeScript configuration. Path aliases are set up:
-- `@/*` maps to `src/*`
+- Strict mode enabled
+- Path alias: `@/*` → `src/*`
+- Separate configs for renderer (`tsconfig.json`) and main (`electron/tsconfig.json`)
 
-### Tailwind CSS v4
-Modern Tailwind configuration with:
-- CSS custom properties for theming
-- Responsive design utilities
-- Dark mode support
-- Custom component classes
+### Renderer (React + Vite)
+- React 19 with TypeScript
+- Tailwind CSS v4 (CSS-first config)
+- Vitest + React Testing Library
+- ESLint 9 + typescript-eslint + Prettier
 
-### Electron
-- Main process with IPC communication
-- Preload scripts for secure API exposure
-- System tray support
-- Production build optimization
+### Main Process (Electron)
+- Electron 43 + TypeScript (CommonJS output)
+- Secure IPC via contextBridge in preload
+- electron-builder for packaging
 
-## 🧪 Testing
+### IPC Pattern
+```typescript
+// electron/preload/index.ts
+contextBridge.exposeInMainWorld('api', {
+  getSettings: () => ipcRenderer.invoke('settings:get'),
+  saveSettings: (s) => ipcRenderer.invoke('settings:save', s),
+});
 
-Tests are configured with Vitest and React Testing Library:
-
-```bash
-npm run test          # Run all tests
-npm run test:watch    # Watch mode
-npm run test:coverage # Coverage report
+// src/services/api.ts
+export const api = {
+  getSettings: () => window.api.getSettings(),
+  saveSettings: (s) => window.api.saveSettings(s),
+};
 ```
 
-## 📦 Building for Production
+## UI Components
 
-### For Development Testing
-```bash
-npm run electron:build
-```
-
-### For Distribution
-```bash
-# macOS
-npm run electron:dist
-
-# Windows (on Windows)
-npm run electron:dist-win
-
-# Linux (on Linux)
-npm run electron:dist-linux
-```
-
-The distributable packages will be created in the `dist/` folder.
-
-## 🎯 Usage Examples
-
-### Using UI Components
+Located in `src/components/ui/`. Each component:
+- Is fully typed with TypeScript
+- Uses Tailwind for styling
+- Follows Radix UI patterns (composable, accessible)
 
 ```tsx
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 
-function MyComponent() {
+function SettingsPanel() {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>My Settings</CardTitle>
-      </CardHeader>
+      <CardHeader><CardTitle>Settings</CardTitle></CardHeader>
       <CardContent className="space-y-4">
-        <Input
-          label="Name"
-          placeholder="Enter your name"
-        />
-        <Select
-          label="Theme"
-          options={[
-            { label: 'Light', value: 'light' },
-            { label: 'Dark', value: 'dark' }
-          ]}
-        />
-        <Button>Save Settings</Button>
+        <Input label="API Key" placeholder="sk-..." />
+        <Button>Save</Button>
       </CardContent>
     </Card>
   );
 }
 ```
 
-### Local Storage Hook
+## Testing
 
-```tsx
-import useLocalStorage from '@/hooks/useLocalStorage';
-
-function SettingsComponent() {
-  const [theme, setTheme] = useLocalStorage('app-theme', 'light');
-  const [notifications, setNotifications] = useLocalStorage('notifications', true);
-
-  return (
-    // Your component JSX
-  );
-}
+```bash
+npm run test           # Run once (CI mode)
+npm run test:watch     # Watch mode
+npm run test:coverage  # Coverage report
 ```
 
-## 🤝 Contributing
+Tests live in `src/__tests__/` alongside source files.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Building for Distribution
 
-## 📄 License
+```bash
+# macOS (universal)
+npm run electron:dist
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+# Windows (run on Windows)
+npm run electron:build -- --win
 
-## 🙏 Acknowledgments
+# Linux (run on Linux)
+npm run electron:build -- --linux
+```
 
-- [Electron](https://electronjs.org/) - Cross-platform desktop app framework
-- [React](https://reactjs.org/) - UI library
-- [Vite](https://vitejs.dev/) - Fast build tool
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components inspiration
+Output appears in `dist/`.
+
+## AI Agent Prompt
+
+Copy this prompt when starting a new project from this template:
 
 ---
 
-<div align="center">
-  <p>Built with ❤️ using Electron, React, and TypeScript</p>
-  <p>
-    <a href="#electron-react-boilerplate">Back to top</a>
-  </p>
-</div>
+**Prompt for AI Agent:**
+
+> Clone `https://github.com/romankurnovskii/electron-react-template.git` and build a desktop app from it: a simple dashboard showing public metrics like CPU usage and active users.
+
+---
+
