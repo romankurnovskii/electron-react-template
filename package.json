@@ -20,7 +20,7 @@
     "electron-reload": "^2.0.0-alpha.1",
     "lucide-react": "^1.45.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "autoprefixer": "^10.5.4",
     "concurrently": "^8.0.1",
