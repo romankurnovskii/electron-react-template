@@ -18,7 +18,7 @@
   "dependencies": {
     "electron-devtools-installer": "^4.0.0",
     "electron-reload": "^2.0.0-alpha.1",
-    "lucide-react": "^1.45.0",
+    "lucide-react": "^1.47.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1"
